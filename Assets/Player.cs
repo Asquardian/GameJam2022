@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private Vector3 pos;
     private bool Jumped;
 
-    public Camera main;
+    private Camera main;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     {
         Jumped = false;
         rb = GetComponent<Rigidbody2D>();
+        main = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     {
         float move = Input.GetAxis("Horizontal");
         pos = main.WorldToScreenPoint(transform.position);
+        Flip();
 
         if ((Input.GetKeyDown("w") || Input.GetKeyDown("space") || Input.GetKeyDown(KeyCode.UpArrow)) && !Jumped)
         {
@@ -41,22 +43,21 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity += Vector2.right * move * speed * Time.deltaTime;
+            rb.velocity += Vector2.right * speed * Time.deltaTime;
         }
         else if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity += Vector2.right * move * speed * Time.deltaTime;
+            rb.velocity += Vector2.left * speed * Time.deltaTime;
         }
-        Flip();
     }
 
 
     public void Flip()
     {
-        if (Input.mousePosition.x < 90)
+        if (Input.mousePosition.x < pos.x)
             transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-        if (Input.mousePosition.x > -90)
+        if (Input.mousePosition.x > pos.x)
             transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }
