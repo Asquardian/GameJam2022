@@ -53,10 +53,10 @@ public class Player : MonoBehaviour
 
     public void Flip()
     {
-        if (Input.mousePosition.x < pos.x)
+        if (Input.mousePosition.x < 90)
             transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-        if (Input.mousePosition.x > pos.x)
+        if (Input.mousePosition.x > -90)
             transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }

@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
             Instantiate(bullet, fp.position, fp.rotation);
         }
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
